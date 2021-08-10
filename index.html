@@ -1,0 +1,45 @@
+<html>
+
+<body>
+	<!-- Form for input files -->
+	<form id="myForm">
+		<!-- Input field -->
+		<input type="file" id="csvFile">
+		<br>
+		<!-- Submit button -->
+		<input type="submit" value="submit">
+	</form>
+
+	<script type="text/javascript">
+		//grab the form
+		const myForm = document.getElementById("myForm")
+		// grab the filed input
+		const csvFile = document.getElementById("csvFile")
+
+		//add event listener
+		myForm.addEventListener("submit", function (e) {
+			//so the page not refreshed when submitted
+			e.preventDefault();
+			//grab the file from the field
+			const input = csvFile.files[0]
+			
+			//new instance of FileReader
+			const reader = new FileReader();
+
+			//when reading is completed load
+			reader.onload = function (event) {
+				// file content as text
+				const text = event.target.result
+				//console the content
+				console.log(text)
+			}
+
+			//read as text
+			reader.readAsText(input)
+
+		})
+	</script>
+
+</body>
+
+</html>
