@@ -30,14 +30,39 @@
 			reader.onload = function (event) {
 				// file content as text
 				const text = event.target.result
+				// result data
+				let result = textToObject(text)
 				//console the content
-				console.log(text)
+				console.log(result)
 			}
-
 			//read as text
 			reader.readAsText(input)
-
 		})
+
+		function textToObject (string) {
+			//the splitter
+			let splitter = ","
+
+			//set the first line as key
+			const keys = string.slice(0, string.indexOf("\n")).split(splitter)
+
+			//set the all next line as row the array be like ["abc, abc, abc", "def, def, def", "ghi, ghi, ghi"]
+			const row = string.slice(string.indexOf("\n") + 1).split("\n")
+
+			// map all row and set as key and value
+			const result = row.map(val => {
+				//split the row, and the val be like [abc, abc, abc]
+				const values = val.split(splitter);
+				//return as object
+				return {
+					[keys[0]]: values[0],
+					[keys[1]]: values[1],
+					[keys[2]]: values[2],
+				}
+			})
+			//return data be like [{key:val, key:val, key:val}, {key:val, key:val, key:val} ...]
+			return result
+		}
 	</script>
 
 </body>
