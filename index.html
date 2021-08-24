@@ -4,7 +4,7 @@
 	<!-- Form for input files -->
 	<form id="myForm">
 		<!-- Input field -->
-		<input type="file" id="csvFile">
+		<input type="file" id="csvFile" multiple>
 		<br>
 		<!-- Submit button -->
 		<input type="submit" value="submit">
@@ -21,8 +21,15 @@
 			//so the page not refreshed when submitted
 			e.preventDefault();
 			//grab the file from the field
-			const input = csvFile.files[0]
-			
+			const input = csvFile.files
+			for(let i = 0; i < input.length; i++) {
+				console.log(input[i])
+				readFile(input[i])
+			}
+						
+		})
+
+		function readFile(file) {
 			//new instance of FileReader
 			const reader = new FileReader();
 
@@ -36,8 +43,8 @@
 				console.log(result)
 			}
 			//read as text
-			reader.readAsText(input)
-		})
+			reader.readAsText(file)
+		}
 
 		function textToObject (string) {
 			//the splitter
